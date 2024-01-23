@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Bank
+﻿namespace Bank
 {
     class Contribution
     {
@@ -54,18 +52,45 @@ namespace Bank
         private double year = 0;
         private double contribution = 0;
         private Contribution contribut;
+        private Person.Person person;
 
         public Bank(Contribution contribut, double year = 1.5, double percent = 7.5) 
         {
             this.contribut = contribut;
             this.year = year;
             this.percent = percent;
+            this.person = person;
         }
+
+        public Bank(Person.Person person)
+        {
+            this.person = person;
+        }
+
+        ~Bank() { }
 
         public void CalculationDeposit()
         {
             FutureContribution();
             DepositWithdrawal();
+        }
+
+        public void WithdrawDeposit()
+        {
+            if(person.status == "usual")
+            {
+                for (int i = 0; i < contribut.GetSizeContributions; i++)
+                {
+                    double value = contribut.GetFinalyContribution[i];
+                    person.Wallet += value;
+                }
+
+                Console.WriteLine("Вклады были сняты на ваш кошелек");
+            }
+            else if(person.status == "vip")
+            {
+                Console.WriteLine("На данный момент мы не умеем снимать счета на кошелек человека с статусом vip\nТак как у вас безлимитный кошелек");
+            }
         }
 
         private void DepositWithdrawal()

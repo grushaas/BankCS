@@ -1,22 +1,36 @@
-﻿using System;
-
-namespace Person
+﻿namespace Person
 {
-    class Person
+    public class Person
     {
         public string firstName = "";
         public string secondName = "";
         public int age;
+        public string status = "";
 
-        private double money = 0;
+        private double wallet = 0;
 
-        protected Person(string firstName, string secondName, int age, double money = 10000)
+        protected Person(string firstName, string secondName, int age, double wallet = 10000)
         {
             this.firstName = firstName;
             this.secondName = secondName;
             this.age = age;
-            this.money = money;
+            this.wallet = wallet;
         }
+
+        public double Wallet
+        {
+            get { return wallet; }
+            set { wallet = value; }
+        }
+
+        public void WithdrawDeposit()
+        {
+            Bank.Bank bank = new Bank.Bank(this);
+            bank.WithdrawDeposit();
+        }
+
+        public virtual void ActionsWithWallet()
+        { }
 
         public virtual double[] CreateContribut()
         {
@@ -34,8 +48,8 @@ namespace Person
 
             double[] contributs = new double[numberContributs];
 
-            Console.WriteLine($"Кошелек: {money}");
-            if (money == 0)
+            Console.WriteLine($"Кошелек: {wallet}");
+            if (wallet == 0)
             {
                 Console.WriteLine("У вас недостаточно денег чтобы сделать вклад");
             }
@@ -45,28 +59,28 @@ namespace Person
                 {
                     Console.Write($"Введите количество денег для {i + 1}: ");
                     double contribut = double.Parse(Console.ReadLine());
-                    double balance = money -= contribut;
+                    double balance = wallet -= contribut;
                     if (balance < 0)
                     {
                         while (balance < 0)
                         {
                             balance = 0;
-                            Console.WriteLine($"Невозможно выполнить, так как у вас {money} денег");
+                            Console.WriteLine($"Невозможно выполнить, так как у вас {wallet} денег");
                             Console.Write($"Введите количество денег для {i + 1}: ");
                             contribut = double.Parse(Console.ReadLine());
-                            balance = money -= contribut;
+                            balance = wallet -= contribut;
                         }
                     }
                     else if (balance == 0)
                     {
-                        money -= contribut;
+                        wallet -= contribut;
                         contributs[i] = contribut;
-                        Console.WriteLine($"Кошелек: {money}");
+                        Console.WriteLine($"Кошелек: {wallet}");
                         Console.WriteLine("Закончились деньги, производится выход...");
                         break;
                     }
 
-                    money -= contribut;
+                    wallet -= contribut;
                     contributs[i] = contribut;
                 }
             }
@@ -77,19 +91,39 @@ namespace Person
 
     class Client : Person
     {
-        public Client(string firstName, string secondName, int age, double money = 10000) : base(firstName, secondName, age, money)
-        {}
+        
+
+        public Client(string firstName, string secondName, int age, double wallet = 10000) : base(firstName, secondName, age, wallet)
+        {
+            status = "usual";
+        }
 
         ~Client() 
         {
             Console.WriteLine($"Персонаж с именем {firstName} и фамилием {secondName}, стёрт");
         }
+
+        public override void ActionsWithWallet()
+        {
+            Console.WriteLine("Переход к банкомату...");
+            CashMachine.CashMachine cashMachine = new CashMachine.CashMachine(this);
+            cashMachine.MenuCashMachine();
+        }
     }
 
     class VIPClient : Person
     {
-        public VIPClient(string firstName, string secondName, int age) : base(firstName, secondName, age, 1000000000)
-        { }
+        public VIPClient(string firstName, string secondName, int age) : base(firstName, secondName, age, 00000000)
+        {
+            status = "vip";
+        }
+
+        public override void ActionsWithWallet()
+        {
+            Console.WriteLine("Переход к банкомату...");
+            CashMachine.CashMachine cashMachine = new CashMachine.CashMachine(this);
+            cashMachine.MenuCashMachine();
+        } 
 
         public override double[] CreateContribut()
         {
