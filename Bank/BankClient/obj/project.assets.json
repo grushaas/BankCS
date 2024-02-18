@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\MyFolder\\college\\Bank\\Bank\\BankClient\\BankClient.csproj",
+      "projectUniqueName": "D:\\MyFolder\\Pet-projects\\Bank_cs\\Bank\\BankClient\\BankClient.csproj",
       "projectName": "BankClient",
-      "projectPath": "D:\\MyFolder\\college\\Bank\\Bank\\BankClient\\BankClient.csproj",
+      "projectPath": "D:\\MyFolder\\Pet-projects\\Bank_cs\\Bank\\BankClient\\BankClient.csproj",
       "packagesPath": "C:\\Users\\Grush\\.nuget\\packages\\",
-      "outputPath": "D:\\MyFolder\\college\\Bank\\Bank\\BankClient\\obj\\",
+      "outputPath": "D:\\MyFolder\\Pet-projects\\Bank_cs\\Bank\\BankClient\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Grush\\AppData\\Roaming\\NuGet\\NuGet.Config",
